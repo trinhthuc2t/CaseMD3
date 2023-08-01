@@ -1,6 +1,6 @@
 package service;
 
-import model.Product;
+import model.product.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

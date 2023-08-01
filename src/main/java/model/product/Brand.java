@@ -1,4 +1,4 @@
-package model;
+package model.product;
 
 public class Brand {
     private int id;
