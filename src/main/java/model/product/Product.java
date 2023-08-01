@@ -7,25 +7,29 @@ public class Product {
     private double price;
 
     private int quantity;
-    private boolean title;
+    private boolean status;
     private String description;
+    Category category;
+    Brand brand;
 
-    public Product(int id, String name, String img, double price, int quantity, boolean title, String description) {
+    public Product(int id, String name, String img, double price, int quantity, boolean status, String description, Category category, Brand brand) {
         this.id = id;
         this.name = name;
         this.img = img;
         this.price = price;
         this.quantity = quantity;
-        this.title = title;
+        this.status = status;
         this.description = description;
+        this.category = category;
+        this.brand = brand;
     }
 
-    public boolean isTitle() {
-        return title;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setTitle(boolean title) {
-        this.title = title;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public String getDescription() {
@@ -38,6 +42,22 @@ public class Product {
 
     public int getId() {
         return id;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     public void setId(int id) {
