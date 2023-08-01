@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
 <html lang="en">
@@ -21,19 +21,26 @@
 </head>
 <body>
 <div class="container">
-    <form class="needs-validation" method="post" action="http://localhost:8080/products?action=add">
+    <form class="needs-validation" method="post" action="http://localhost:8080/products?action=edit">
         <div class="form-row">
-            <div class="col-md-6 mb-3">
-                <label for="validationCustom01">Tên SP</label>
-                <input type="text" class="form-control" id="validationCustom01" name="name">
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom01">ID</label>
+                <input type="text" class="form-control" id="validationCustom01" name="id" value="${products.id}">
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
-            <div class="col-md-6 mb-3">
-                <label for="validationCustom02">Ảnh</label>
-                <input type="text" class="form-control" id="validationCustom02" name="img">
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom061">Tên SP</label>
+                <input type="text" class="form-control" id="validationCustom061" name="name" value="${products.name}">
                 <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom02">Ảnh</label>
+                <input type="text" class="form-control" id="validationCustom02" name="img" value="${products.img}">
+                <div class=" valid-feedback">
                     Looks good!
                 </div>
             </div>
@@ -41,15 +48,16 @@
         <div class="form-row">
             <div class="col-md-6 mb-3">
                 <label for="validationCustom003">Giá</label>
-                <input type="text" class="form-control" id="validationCustom003" name="price">
-                <div class="valid-feedback">
+                <input type="text" class="form-control" id="validationCustom003" name="price" value="${products.price}">
+                <div class=" valid-feedback">
                     Looks good!
                 </div>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="validationCustom002">Số lượng</label>
-                <input type="text" class="form-control" id="validationCustom002" name="quantity">
-                <div class="valid-feedback">
+                <input type="text" class="form-control" id="validationCustom002" name="quantity"
+                       value="${products.quantity}">
+                <div class=" valid-feedback">
                     Looks good!
                 </div>
             </div>
@@ -57,30 +65,31 @@
         <div class="form-row">
             <div class="col-md-3 mb-3">
                 <label for="validationCustom03">Status</label>
-                <input type="text" class="form-control" id="validationCustom03" name="status">
-                <div class="invalid-feedback">
+                <input type="text" class="form-control" id="validationCustom03" name="status"
+                       value="${products.status}">
+                <div class=" invalid-feedback">
                     Please provide a valid city.
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-<%--                <label for="validationCustom04">Loại</label>--%>
-<%--                <select class="custom-select" id="validationCustom04" name="categoryId">--%>
-<%--                    <o<c:forEach items="${}" var="category">--%>
-<%--                    <option value="${category.id}">${category.name}</option>--%>
-<%--                </c:forEach>--%>
-<%--                </select>--%>
-    <input type="number" name="categoryId">
+                <%--                <label for="validationCustom04">Loại</label>--%>
+                <%--                <select class="custom-select" id="validationCustom04" name="categoryId">--%>
+                <%--                    <o<c:forEach items="${}" var="category">--%>
+                <%--                    <option value="${category.id}">${category.name}</option>--%>
+                <%--                </c:forEach>--%>
+                <%--                </select>--%>
+                <input type="number" name="categoryId" value="${products.category.getAll().getId()}">
                 <div class="invalid-feedback">
                     Please select a valid state.
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <input type="number" name="brandId">
-<%--                <label for="validationCustom044">Loại</label>--%>
-<%--                <select class="custom-select" id="validationCustom044" name="brandId">--%>
-<%--                    <option selected disabled value="${brand.id}">${brand.name}</option>--%>
-<%--                    <option>...</option>--%>
-<%--                </select>--%>
+                <input type="number" name="brandId" value="${products.brand.getAll().getId()}">
+                <%--                <label for="validationCustom044">Loại</label>--%>
+                <%--                <select class="custom-select" id="validationCustom044" name="brandId">--%>
+                <%--                    <option selected disabled value="${brand.id}">${brand.name}</option>--%>
+                <%--                    <option>...</option>--%>
+                <%--                </select>--%>
                 <div class="invalid-feedback">
                     Please select a valid state.
                 </div>
@@ -130,3 +139,4 @@
 </script>
 </body>
 </html>
+
