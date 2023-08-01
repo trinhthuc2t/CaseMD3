@@ -1,6 +1,6 @@
 package controller;
 
-import model.Product;
+import model.product.Product;
 import service.ProductService;
 
 import javax.servlet.*;
@@ -9,7 +9,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ProductController", value = "/ProductController")
+@WebServlet(name = "ProductController", value = "/products")
 public class ProductController extends HttpServlet {
     ProductService productService = new ProductService();
 
