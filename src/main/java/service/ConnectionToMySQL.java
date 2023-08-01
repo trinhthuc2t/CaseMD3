@@ -3,7 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class ConnectionToMySQL {
-    static final String URL = "jdbc:mysql://localhost:3306/students_c04";
+    static final String URL = "jdbc:mysql://localhost:3306/n5shop";
     static final String USERNAME = "root";
     static final String PASSWORD = "123456";
 

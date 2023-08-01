@@ -30,7 +30,6 @@ public class ProductController extends HttpServlet {
 
                 break;
             case "search":
-
                 break;
         }
     }
@@ -39,6 +38,11 @@ public class ProductController extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/products/home.jsp");
         List<Product> products = productService.getAll();
         request.setAttribute("products", products);
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
