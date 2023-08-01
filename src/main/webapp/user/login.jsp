@@ -18,7 +18,7 @@
     <h1 class="text-center">N5 SHOP</h1>
     <div class="row">
         <div class="col-md-3 col-md-offset-4">
-            <h1><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> HTQD
+            <h1><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Q-H-T-D
             </h1>
             <div class="login-form">
                 <div class="form-group"> <input class="form-control" value="" placeholder="n5shop@gmail.com" id="login-name" type="text">
@@ -29,12 +29,12 @@
                 </div>
                 <br> <a class="btn btn-info" href="http://localhost:8080/products/home.jsp">Đăng nhập</a>
                 <br>
-                <br> <a href="http://hocwebgiare.com/"><small>Quên mật khẩu</small></a>
-                <br> <a href="http://hocwebgiare.com/"><small>Đăng nhập bằng mã dùng một lần</small></a>
+                <br> <a href=""><small>Quên mật khẩu</small></a>
+                <br> <a href=""><small>Đăng nhập bằng mã dùng một lần</small></a>
                 <br>
                 <br>
                 <br>
-                <div><small>Không có tài khoản?</small> <a href="http://hocwebgiare.com/"><small>Tạo tài khoản</small></a>
+                <div><small>Không có tài khoản?</small> <a href="http://localhost:8080/user/register.jsp"><small>Tạo tài khoản</small></a>
                 </div>
             </div>
         </div>
