@@ -7,6 +7,8 @@ public class Brand {
     public Brand(int id, String name) {
         this.id = id;
         this.name = name;
+    } public Brand(int id) {
+        this.id = id;
     }
 
     public int getId() {

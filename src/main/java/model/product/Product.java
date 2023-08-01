@@ -23,6 +23,16 @@ public class Product {
         this.category = category;
         this.brand = brand;
     }
+    public Product(String name, String img, double price, int quantity, boolean status, String description, Category category, Brand brand) {
+        this.name = name;
+        this.img = img;
+        this.price = price;
+        this.quantity = quantity;
+        this.status = status;
+        this.description = description;
+        this.category = category;
+        this.brand = brand;
+    }
 
     public boolean isStatus() {
         return status;

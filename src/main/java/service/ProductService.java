@@ -46,7 +46,21 @@ public class ProductService implements IProductService<Product> {
 
     @Override
     public void add(Product product) {
-
+        String sql = "insert into product (name,img,price,quantity,status,description, categoryId,brandId) value (?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, product.getName());
+            statement.setString(2, product.getImg());
+            statement.setDouble(3, product.getPrice());
+            statement.setInt(4,product.getQuantity());
+            statement.setBoolean(5,product.isStatus());
+            statement.setString(6,product.getDescription());
+            statement.setInt(7, product.getCategory().getId());
+            statement.setInt(8,product.getBrand().getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
