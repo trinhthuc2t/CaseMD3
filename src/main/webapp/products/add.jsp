@@ -4,6 +4,8 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <title>N5 SHOP</title>
+    <link rel="icon" href="https://cdn.dribbble.com/users/1595645/screenshots/13966658/media/3896bf05aa6ae338d73474edd5cc16a7.png">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -69,18 +71,17 @@
                         <option value="${category.id}">${category.name}</option>
                     </c:forEach>
                 </select>
-                <input type="number" name="categoryId">
                 <div class="invalid-feedback">
                     Please select a valid state.
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <input type="number" name="brandId">
-                <%--                <label for="validationCustom044">Loại</label>--%>
-                <%--                <select class="custom-select" id="validationCustom044" name="brandId">--%>
-                <%--                    <option selected disabled value="${brand.id}">${brand.name}</option>--%>
-                <%--                    <option>...</option>--%>
-                <%--                </select>--%>
+                <label for="validationCustom044">Loại</label>
+                <select class="custom-select" id="validationCustom044" name="brandId">
+                    <c:forEach items="${brands}" var="brand">
+                        <option value="${brand.id}">${brand.name}</option>
+                    </c:forEach>
+                </select>
                 <div class="invalid-feedback">
                     Please select a valid state.
                 </div>

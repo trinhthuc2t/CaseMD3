@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>N5 SHOP</title>
+    <link rel="icon" href="https://cdn.dribbble.com/users/1595645/screenshots/13966658/media/3896bf05aa6ae338d73474edd5cc16a7.png">
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
@@ -31,14 +33,23 @@
                 <li class="nav-item"><a class="nav-link" href="http://localhost:8080/products?action=add">Thêm</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                       data-bs-toggle="dropdown" aria-expanded="false">Danh Mục Sản Phẩm</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">All Products</a></li>
+                        <li><a class="dropdown-item" href="http://localhost:8080/products?action=home">Tất cả SP</a>
+                        </li>
                         <li>
                             <hr class="dropdown-divider"/>
                         </li>
-                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                        <C:forEach items="${brands}" var="brand">
+                            <li><a class="dropdown-item"
+                                   href="http://localhost:8080/products?action=product_to_category&id=${brand.id}">${brand.name}</a>
+                            </li>
+                        </C:forEach>
+                        <C:forEach items="${categories}" var="category">
+                            <li><a class="dropdown-item"
+                                   href="http://localhost:8080/products?action=product_to_category&id=${category.id}">${category.name}</a>
+                            </li>
+                        </C:forEach>
                     </ul>
                 </li>
             </ul>
@@ -81,8 +92,12 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent row">
-                            <div class="text-center col-6"><a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/products?action=edit&id=${products.id}">Sửa</a></div>
-                            <div class="text-center col-6"><a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/products?action=delete&id=${products.id}">Xóa</a></div>
+                            <div class="text-center col-6"><a class="btn btn-outline-dark mt-auto"
+                                                              href="http://localhost:8080/products?action=edit&id=${products.id}">Sửa</a>
+                            </div>
+                            <div class="text-center col-6"><a class="btn btn-outline-dark mt-auto"
+                                                              href="http://localhost:8080/products?action=delete&id=${products.id}">Xóa</a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,8 @@ package controller;
 import model.product.Brand;
 import model.product.Category;
 import model.product.Product;
+import service.BrandService;
+import service.CategoryService;
 import service.ProductService;
 
 import javax.servlet.*;
@@ -14,13 +16,15 @@ import java.util.List;
 @WebServlet(name = "ProductController", value = "/products")
 public class ProductController extends HttpServlet {
     ProductService productService = new ProductService();
+    CategoryService categoryService = new CategoryService();
+    BrandService brandService = new BrandService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         switch (action) {
             case "home_admin":
-                showAll(request, response);
+                showAllForAdmin(request, response);
             case "home":
                 showAllForUser(request, response);
                 break;
@@ -33,8 +37,46 @@ public class ProductController extends HttpServlet {
             case "edit":
                 showEditForm(request,response);
                 break;
+            case "product_to_brand":
+                showBrandForm(request, response);
+                break;
+                case "product_to_category":
+                showCategoryForm(request, response);
+                break;
             case "search":
                 break;
+        }
+    }
+
+    private void showCategoryForm(HttpServletRequest request, HttpServletResponse response) {
+        int idCategory = Integer.parseInt(request.getParameter("id"));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("products/product_to_category.jsp");
+        List<Product> products = productService.getCategory(idCategory);
+        List<Category> categories = categoryService.getAll();
+        List<Brand> brands = brandService.getAll();
+        request.setAttribute("categories",categories);
+        request.setAttribute("brands", brands);
+        request.setAttribute("products", products);
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void showBrandForm(HttpServletRequest request, HttpServletResponse response) {
+        int idBrand = Integer.parseInt(request.getParameter("id"));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("products/product_to_brand.jsp");
+        List<Product> products = productService.getBrand(idBrand);
+        List<Category> categories = categoryService.getAll();
+        List<Brand> brands = brandService.getAll();
+        request.setAttribute("categories",categories);
+        request.setAttribute("brands", brands);
+        request.setAttribute("products", products);
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -42,6 +84,10 @@ public class ProductController extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("products/edit.jsp");
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = productService.findIndexById(id);
+        List<Category> categories = categoryService.getAll();
+        List<Brand> brands = brandService.getAll();
+        request.setAttribute("categories",categories);
+        request.setAttribute("brands", brands);
         request.setAttribute("product", product);
         try {
             dispatcher.forward(request, response);
@@ -63,6 +109,10 @@ public class ProductController extends HttpServlet {
 
     private void showAddForm(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/products/add.jsp");
+        List<Category> categories = categoryService.getAll();
+        List<Brand> brands = brandService.getAll();
+        request.setAttribute("categories",categories);
+        request.setAttribute("brands", brands);
         try {
             dispatcher.forward(request, response);
         } catch (ServletException | IOException e) {
@@ -71,9 +121,13 @@ public class ProductController extends HttpServlet {
     }
 
 
-    private void showAll(HttpServletRequest request, HttpServletResponse response) {
+    private void showAllForAdmin(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/products/home_admin.jsp");
         List<Product> products = productService.getAll();
+        List<Category> categories = categoryService.getAll();
+        List<Brand> brands = brandService.getAll();
+        request.setAttribute("categories",categories);
+        request.setAttribute("brands", brands);
         request.setAttribute("products", products);
         try {
             dispatcher.forward(request, response);
@@ -84,6 +138,10 @@ public class ProductController extends HttpServlet {
     } private void showAllForUser(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/products/home.jsp");
         List<Product> products = productService.getAll();
+        List<Category> categories = categoryService.getAll();
+        List<Brand> brands = brandService.getAll();
+        request.setAttribute("categories",categories);
+        request.setAttribute("brands", brands);
         request.setAttribute("products", products);
         try {
             dispatcher.forward(request, response);

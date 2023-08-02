@@ -14,7 +14,59 @@ import java.util.List;
 public class ProductService implements IProductService<Product> {
     Connection connection = ConnectionToMySQL.getConnection();
 
-    @Override
+    public List<Product> getBrand(int idBrand) {
+        List<Product> products = new ArrayList<>();
+        String sql = "select * from product join brand b on b.id = product.brandId where b.id = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1,idBrand);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String img = resultSet.getString("img");
+                double price = resultSet.getDouble("price");
+                int quantity = resultSet.getInt("quantity");
+                boolean status = resultSet.getBoolean("status");
+                String description = resultSet.getString("description");
+                int idCategory = resultSet.getInt("categoryId");
+                String nameBrand = resultSet.getString("b.name");
+                Brand brand = new Brand(idBrand, nameBrand);
+                Category category = new Category(idCategory);
+                Product product = new Product(id, name, img, price, quantity, status, description, category, brand);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return products;
+    } public List<Product> getCategory(int idCategory) {
+        List<Product> products = new ArrayList<>();
+        String sql = "select * from product join category c on c.id = product.categoryId where c.id = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1,idCategory);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String img = resultSet.getString("img");
+                double price = resultSet.getDouble("price");
+                int quantity = resultSet.getInt("quantity");
+                boolean status = resultSet.getBoolean("status");
+                String description = resultSet.getString("description");
+                int idBrand = resultSet.getInt("brandId");
+                String nameCategory = resultSet.getString("c.name");
+                Brand brand = new Brand(idBrand);
+                Category category = new Category(idCategory, nameCategory);
+                Product product = new Product(id, name, img, price, quantity, status, description, category, brand);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return products;
+    }
     public List<Product> getAll() {
         List<Product> products = new ArrayList<>();
         String sql = "select * from product";
@@ -30,11 +82,9 @@ public class ProductService implements IProductService<Product> {
                 boolean status = resultSet.getBoolean("status");
                 String description = resultSet.getString("description");
                 int idCategory = resultSet.getInt("categoryId");
-                String nameCategory = resultSet.getString("name");
                 int idBrand = resultSet.getInt("brandId");
-                String nameBrand = resultSet.getString("name");
-                Brand brand = new Brand(idBrand, nameBrand);
-                Category category = new Category(idCategory, nameCategory);
+                Brand brand = new Brand(idBrand);
+                Category category = new Category(idCategory);
                 Product product = new Product(id, name, img, price, quantity, status, description, category, brand);
                 products.add(product);
             }
@@ -125,4 +175,5 @@ public class ProductService implements IProductService<Product> {
         }
         return product;
     }
+
 }
