@@ -9,7 +9,17 @@ import java.io.IOException;
 public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        switch (action){
+            case "login":
+                showLoginForm(request, response);
+                break;
+        }
+    }
 
+    private void showLoginForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user/login.jsp");
+        dispatcher.forward(request, response);
     }
 
     @Override

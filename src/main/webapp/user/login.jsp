@@ -3,6 +3,8 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <title>N5 SHOP</title>
+    <link rel="icon" href="https://cdn.dribbble.com/users/1595645/screenshots/13966658/media/3896bf05aa6ae338d73474edd5cc16a7.png">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -14,6 +16,7 @@
 <script src="js/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="../css/user.css">
 <body>
+<form action="http://localhost:8080/user?action=login" method="post">
 <div class="container">
     <h1 class="text-center">N5 SHOP</h1>
     <div class="row">
@@ -40,5 +43,6 @@
         </div>
     </div>
 </div>
+</form>
 </body>
 </html>
