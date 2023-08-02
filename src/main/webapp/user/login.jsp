@@ -24,13 +24,13 @@
             <h1><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Q-H-T-D
             </h1>
             <div class="login-form">
-                <div class="form-group"> <input class="form-control" value="" placeholder="n5shop@gmail.com" id="login-name" type="text">
+                <div class="form-group"> <input class="form-control" value="" placeholder="n5shop@gmail.com" id="login-name" type="text" name="user">
                 </div>
-                <div class="form-group"> <input class="form-control" value="" placeholder="Password" id="login-pass" type="password">
+                <div class="form-group"> <input class="form-control" value="" placeholder="Password" id="login-pass" type="password" name="password">
                 </div>
                 <div class="checkbox"> <label><input type="checkbox"> Giữ tôi luôn đăng nhập </label>
                 </div>
-                <br> <a class="btn btn-info" href="http://localhost:8080/products/home.jsp">Đăng nhập</a>
+                <br> <button class="btn btn-info" type="submit">Đăng nhập</button>
                 <br>
                 <br> <a href=""><small>Quên mật khẩu</small></a>
                 <br> <a href=""><small>Đăng nhập bằng mã dùng một lần</small></a>

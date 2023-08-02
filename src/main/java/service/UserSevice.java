@@ -7,18 +7,30 @@ import java.util.List;
 
 public class UserSevice {
     List<User> users = new ArrayList<>();
-    public UserSevice(){
+
+    public UserSevice() {
         users.add(new User(1, "quan", "1", "user"));
     }
-    public void add(User user){
+
+    public void add(User user) {
         this.users.add(user);
     }
-    public boolean checkUser(int id) {
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getId() == id) {
+
+    public boolean checkUser(String user, String password) {
+        for (User use : users) {
+            if (user.equals(use.getUser()) && password.equals(use.getPassword())) {
                 return true;
             }
         }
         return false;
     }
+    public int getIdUser(String user, String password){
+        for (User use : users) {
+            if (user.equals(use.getUser()) && password.equals(use.getPassword())) {
+                return use.getId();
+            }
+        }
+        return -1;
+    }
 }
+

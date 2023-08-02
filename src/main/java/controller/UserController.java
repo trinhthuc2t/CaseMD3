@@ -1,5 +1,7 @@
 package controller;
 
+import service.UserSevice;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -7,8 +9,11 @@ import java.io.IOException;
 
 @WebServlet(name = "UserController", value = "/user")
 public class UserController extends HttpServlet {
+    private UserSevice userSevice = new UserSevice();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session=request.getSession(false);
+        System.out.println(session.getAttribute("idUser"));
         String action = request.getParameter("action");
         switch (action){
             case "login":
@@ -24,6 +29,23 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String action = request.getParameter("action");
+        switch (action){
+            case "login":
+                login(request, response);
+                break;
+        }
+    }
+    private void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String user = request.getParameter("user");
+        String password = request.getParameter("password");
+        if (userSevice.checkUser(user , password)){
+            int id = userSevice.getIdUser(user , password);
+            HttpSession session = request.getSession();
+            session.setAttribute("idUser", id);
+            response.sendRedirect("/products/home.jsp");
+        }else {
+            response.sendRedirect("/user?action=login");
+        }
     }
 }
