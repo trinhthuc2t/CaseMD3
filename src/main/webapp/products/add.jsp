@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
 <html lang="en">
@@ -63,24 +63,24 @@
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-<%--                <label for="validationCustom04">Loại</label>--%>
-<%--                <select class="custom-select" id="validationCustom04" name="categoryId">--%>
-<%--                    <o<c:forEach items="${}" var="category">--%>
-<%--                    <option value="${category.id}">${category.name}</option>--%>
-<%--                </c:forEach>--%>
-<%--                </select>--%>
-    <input type="number" name="categoryId">
+                <label for="validationCustom04">Loại</label>
+                <select class="custom-select" id="validationCustom04" name="categoryId">
+                    <c:forEach items="${categories}" var="category">
+                        <option value="${category.id}">${category.name}</option>
+                    </c:forEach>
+                </select>
+                <input type="number" name="categoryId">
                 <div class="invalid-feedback">
                     Please select a valid state.
                 </div>
             </div>
             <div class="col-md-3 mb-3">
                 <input type="number" name="brandId">
-<%--                <label for="validationCustom044">Loại</label>--%>
-<%--                <select class="custom-select" id="validationCustom044" name="brandId">--%>
-<%--                    <option selected disabled value="${brand.id}">${brand.name}</option>--%>
-<%--                    <option>...</option>--%>
-<%--                </select>--%>
+                <%--                <label for="validationCustom044">Loại</label>--%>
+                <%--                <select class="custom-select" id="validationCustom044" name="brandId">--%>
+                <%--                    <option selected disabled value="${brand.id}">${brand.name}</option>--%>
+                <%--                    <option>...</option>--%>
+                <%--                </select>--%>
                 <div class="invalid-feedback">
                     Please select a valid state.
                 </div>

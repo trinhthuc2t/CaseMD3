@@ -79,7 +79,7 @@ public class ProductService implements IProductService<Product> {
     @Override
     public void edit(int id, Product product) {
         String sql = "update product set name = ?, img = ?, price = ?, quantity = ?, " +
-                "status = ?, description = ?, categoryId = ?, brandId =?";
+                "status = ?, description = ?, categoryId = ?, brandId =? where id =?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -91,6 +91,7 @@ public class ProductService implements IProductService<Product> {
             statement.setString(6, product.getDescription());
             statement.setInt(7, product.getCategory().getId());
             statement.setInt(8, product.getBrand().getId());
+            statement.setInt(9, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

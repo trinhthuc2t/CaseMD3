@@ -21,6 +21,8 @@ public class ProductController extends HttpServlet {
         switch (action) {
             case "home_admin":
                 showAll(request, response);
+            case "home":
+                showAllForUser(request, response);
                 break;
             case "add":
                 showAddForm(request, response);
@@ -37,7 +39,7 @@ public class ProductController extends HttpServlet {
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("//products/edit.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("products/edit.jsp");
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = productService.findIndexById(id);
         request.setAttribute("product", product);
@@ -71,6 +73,16 @@ public class ProductController extends HttpServlet {
 
     private void showAll(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/products/home_admin.jsp");
+        List<Product> products = productService.getAll();
+        request.setAttribute("products", products);
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    } private void showAllForUser(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/products/home.jsp");
         List<Product> products = productService.getAll();
         request.setAttribute("products", products);
         try {

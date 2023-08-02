@@ -25,21 +25,21 @@
         <div class="form-row">
             <div class="col-md-4 mb-3">
                 <label for="validationCustom01">ID</label>
-                <input type="text" class="form-control" id="validationCustom01" name="id" value="${products.id}">
+                <input type="text" class="form-control" id="validationCustom01" name="id" value="${product.id}">
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="validationCustom061">Tên SP</label>
-                <input type="text" class="form-control" id="validationCustom061" name="name" value="${products.name}">
+                <input type="text" class="form-control" id="validationCustom061" name="name" value="${product.name}">
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="validationCustom02">Ảnh</label>
-                <input type="text" class="form-control" id="validationCustom02" name="img" value="${products.img}">
+                <input type="text" class="form-control" id="validationCustom02" name="img" value="${product.img}">
                 <div class=" valid-feedback">
                     Looks good!
                 </div>
@@ -48,7 +48,7 @@
         <div class="form-row">
             <div class="col-md-6 mb-3">
                 <label for="validationCustom003">Giá</label>
-                <input type="text" class="form-control" id="validationCustom003" name="price" value="${products.price}">
+                <input type="text" class="form-control" id="validationCustom003" name="price" value="${product.price}">
                 <div class=" valid-feedback">
                     Looks good!
                 </div>
@@ -56,7 +56,7 @@
             <div class="col-md-6 mb-3">
                 <label for="validationCustom002">Số lượng</label>
                 <input type="text" class="form-control" id="validationCustom002" name="quantity"
-                       value="${products.quantity}">
+                       value="${product.quantity}">
                 <div class=" valid-feedback">
                     Looks good!
                 </div>
@@ -66,7 +66,7 @@
             <div class="col-md-3 mb-3">
                 <label for="validationCustom03">Status</label>
                 <input type="text" class="form-control" id="validationCustom03" name="status"
-                       value="${products.status}">
+                       value="${product.status}">
                 <div class=" invalid-feedback">
                     Please provide a valid city.
                 </div>
@@ -78,13 +78,13 @@
                 <%--                    <option value="${category.id}">${category.name}</option>--%>
                 <%--                </c:forEach>--%>
                 <%--                </select>--%>
-                <input type="number" name="categoryId" value="${products.category.getAll().getId()}">
+                <input type="number" name="categoryId" value="${product.category.id}">
                 <div class="invalid-feedback">
                     Please select a valid state.
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <input type="number" name="brandId" value="${products.brand.getAll().getId()}">
+                <input type="number" name="brandId" value="${product.brand.id}">
                 <%--                <label for="validationCustom044">Loại</label>--%>
                 <%--                <select class="custom-select" id="validationCustom044" name="brandId">--%>
                 <%--                    <option selected disabled value="${brand.id}">${brand.name}</option>--%>
