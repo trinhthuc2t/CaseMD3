@@ -1,5 +1,6 @@
 package controller;
 
+import filter.SessionUser;
 import model.product.Brand;
 import model.product.Category;
 import model.product.Product;
@@ -22,31 +23,39 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        boolean check = SessionUser.checkUser(request);
         switch (action) {
-            case "home_admin":
-                showAllForAdmin(request, response);
             case "home":
                 showAllForUser(request, response);
-                break;
-            case "add":
-                showAddForm(request, response);
-                break;
-            case "delete":
-                deleteProduct(request,response);
-                break;
-            case "edit":
-                showEditForm(request,response);
                 break;
             case "product_to_brand":
                 showBrandForm(request, response);
                 break;
-                case "product_to_category":
+            case "product_to_category":
                 showCategoryForm(request, response);
                 break;
             case "search":
                 break;
         }
+        if (check) {
+            switch (action) {
+                case "home_admin":
+                    showAllForAdmin(request, response);
+                case "add":
+                    showAddForm(request, response);
+                    break;
+                case "delete":
+                    deleteProduct(request, response);
+                    break;
+                case "edit":
+                    showEditForm(request, response);
+                    break;
+            }
+        } else {
+            response.sendRedirect("/user?action=login");
+        }
     }
+
 
     private void showCategoryForm(HttpServletRequest request, HttpServletResponse response) {
         int idCategory = Integer.parseInt(request.getParameter("id"));
@@ -54,7 +63,7 @@ public class ProductController extends HttpServlet {
         List<Product> products = productService.getCategory(idCategory);
         List<Category> categories = categoryService.getAll();
         List<Brand> brands = brandService.getAll();
-        request.setAttribute("categories",categories);
+        request.setAttribute("categories", categories);
         request.setAttribute("brands", brands);
         request.setAttribute("products", products);
         try {
@@ -70,7 +79,7 @@ public class ProductController extends HttpServlet {
         List<Product> products = productService.getBrand(idBrand);
         List<Category> categories = categoryService.getAll();
         List<Brand> brands = brandService.getAll();
-        request.setAttribute("categories",categories);
+        request.setAttribute("categories", categories);
         request.setAttribute("brands", brands);
         request.setAttribute("products", products);
         try {
@@ -86,7 +95,7 @@ public class ProductController extends HttpServlet {
         Product product = productService.findIndexById(id);
         List<Category> categories = categoryService.getAll();
         List<Brand> brands = brandService.getAll();
-        request.setAttribute("categories",categories);
+        request.setAttribute("categories", categories);
         request.setAttribute("brands", brands);
         request.setAttribute("product", product);
         try {
@@ -111,7 +120,7 @@ public class ProductController extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/products/add.jsp");
         List<Category> categories = categoryService.getAll();
         List<Brand> brands = brandService.getAll();
-        request.setAttribute("categories",categories);
+        request.setAttribute("categories", categories);
         request.setAttribute("brands", brands);
         try {
             dispatcher.forward(request, response);
@@ -126,7 +135,7 @@ public class ProductController extends HttpServlet {
         List<Product> products = productService.getAll();
         List<Category> categories = categoryService.getAll();
         List<Brand> brands = brandService.getAll();
-        request.setAttribute("categories",categories);
+        request.setAttribute("categories", categories);
         request.setAttribute("brands", brands);
         request.setAttribute("products", products);
         try {
@@ -135,12 +144,14 @@ public class ProductController extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-    } private void showAllForUser(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    private void showAllForUser(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/products/home.jsp");
         List<Product> products = productService.getAll();
         List<Category> categories = categoryService.getAll();
         List<Brand> brands = brandService.getAll();
-        request.setAttribute("categories",categories);
+        request.setAttribute("categories", categories);
         request.setAttribute("brands", brands);
         request.setAttribute("products", products);
         try {
@@ -161,7 +172,7 @@ public class ProductController extends HttpServlet {
                 createProduct(request, response);
                 break;
             case "edit":
-                editProduct(request,response);
+                editProduct(request, response);
                 break;
             case "search":
                 break;
@@ -180,7 +191,7 @@ public class ProductController extends HttpServlet {
         int brandId = Integer.parseInt(request.getParameter("brandId"));
         Category category = new Category(categoryId);
         Brand brand = new Brand(brandId);
-        Product product = new Product(name,img,price,quantity,status,description,category,brand);
+        Product product = new Product(name, img, price, quantity, status, description, category, brand);
         productService.edit(id, product);
         try {
             response.sendRedirect("/products?action=home_admin");
@@ -201,7 +212,7 @@ public class ProductController extends HttpServlet {
         int brandId = Integer.parseInt(request.getParameter("brandId"));
         Category category = new Category(categoryId);
         Brand brand = new Brand(brandId);
-        Product product = new Product(name,img,price,quantity,status,description,category,brand);
+        Product product = new Product(name, img, price, quantity, status, description, category, brand);
         productService.add(product);
         response.sendRedirect("/products?action=home_admin");
     }

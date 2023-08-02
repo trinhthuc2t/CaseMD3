@@ -5,7 +5,8 @@
 <html lang="en">
 <head>
     <title>N5 SHOP</title>
-    <link rel="icon" href="https://cdn.dribbble.com/users/1595645/screenshots/13966658/media/3896bf05aa6ae338d73474edd5cc16a7.png">
+    <link rel="icon"
+          href="https://cdn.dribbble.com/users/1595645/screenshots/13966658/media/3896bf05aa6ae338d73474edd5cc16a7.png">
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
@@ -20,7 +21,7 @@
 </head>
 <body>
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #F0F2F5">
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="#!"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -30,9 +31,8 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="nav-link active" aria-current="page"
                                         href="http://localhost:8080/products?action=home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="http://localhost:8080/products?action=add">Thêm</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="http://localhost:8080/products?action=home" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">Danh Mục Sản Phẩm</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="http://localhost:8080/products?action=home">Tất cả SP</a>
@@ -53,6 +53,8 @@
                     </ul>
                 </li>
             </ul>
+            <input type="text" name=search" placeholder="Search" class="search">
+
             <form class="d-flex">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
@@ -60,6 +62,11 @@
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
             </form>
+
+            <button class="btn btn-outline-dark user" type="submit">
+                <a href="http://localhost:8080/user?action=login" class="user">Tài khoản</a>
+            </button>
+
         </div>
     </div>
 </nav>
