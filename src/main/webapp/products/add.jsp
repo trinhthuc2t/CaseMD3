@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="validationCustom044">Loại</label>
+                <label for="validationCustom044">Hãng</label>
                 <select class="custom-select" id="validationCustom044" name="brandId">
                     <c:forEach items="${brands}" var="brand">
                         <option value="${brand.id}">${brand.name}</option>
