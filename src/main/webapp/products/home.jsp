@@ -32,7 +32,8 @@
                 <li class="nav-item"><a class="nav-link active" aria-current="page"
                                         href="http://localhost:8080/products?action=home">Home</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="http://localhost:8080/products?action=home" role="button"
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown"
+                       href="http://localhost:8080/products?action=home" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">Danh Mục Sản Phẩm</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="http://localhost:8080/products?action=home">Tất cả SP</a>
@@ -52,6 +53,12 @@
                         </C:forEach>
                     </ul>
                 </li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                        href="http://localhost:8080/products?action=asc">Giá tăng dần</a></li>
+                <li class="nav-item dropdown">
+                <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                        href="http://localhost:8080/products?action=desc">Giá giảm dần</a></li>
+                <li class="nav-item dropdown">
             </ul>
             <input type="text" name=search" placeholder="Search" class="search">
 
@@ -102,7 +109,8 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${products.img}">Thêm giỏ hàng</a>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${products.img}">Thêm
+                                giỏ hàng</a>
                             </div>
                         </div>
                     </div>

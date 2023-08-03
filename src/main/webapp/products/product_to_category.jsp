@@ -5,7 +5,8 @@
 <html lang="en">
 <head>
     <title>N5 SHOP</title>
-    <link rel="icon" href="https://cdn.dribbble.com/users/1595645/screenshots/13966658/media/3896bf05aa6ae338d73474edd5cc16a7.png">
+    <link rel="icon"
+          href="https://cdn.dribbble.com/users/1595645/screenshots/13966658/media/3896bf05aa6ae338d73474edd5cc16a7.png">
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
@@ -20,7 +21,7 @@
 </head>
 <body>
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #F0F2F5">
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="#!"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -31,7 +32,8 @@
                 <li class="nav-item"><a class="nav-link active" aria-current="page"
                                         href="http://localhost:8080/products?action=home">Home</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="http://localhost:8080/products?action=home" role="button"
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown"
+                       href="http://localhost:8080/products?action=home" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">Danh Mục Sản Phẩm</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="http://localhost:8080/products?action=home">Tất cả SP</a>
@@ -51,6 +53,12 @@
                         </C:forEach>
                     </ul>
                 </li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                        href="http://localhost:8080/products?action=asc">Giá tăng dần</a></li>
+                <li class="nav-item dropdown">
+                <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                        href="http://localhost:8080/products?action=desc">Giá giảm dần</a></li>
+                <li class="nav-item dropdown">
             </ul>
             <input type="text" name=search" placeholder="Search" class="search">
 
@@ -61,9 +69,14 @@
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
             </form>
+
             <button class="btn btn-outline-dark user" type="submit">
                 <a href="http://localhost:8080/user?action=login" class="user">Tài khoản</a>
             </button>
+            <button class="btn btn-outline-dark user" type="submit">
+                <a href="" class="user">Chảo ${sessionScope.idUser}</a>
+            </button>
+
         </div>
     </div>
 </nav>
@@ -96,8 +109,8 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${products.img}">Xem
-                                them</a>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${products.img}">Thêm
+                                giỏ hàng</a>
                             </div>
                         </div>
                     </div>

@@ -1,11 +1,13 @@
 package controller;
 
 import filter.SessionUser;
+import model.Order.Order;
 import model.product.Brand;
 import model.product.Category;
 import model.product.Product;
 import service.BrandService;
 import service.CategoryService;
+import service.OrderService;
 import service.ProductService;
 
 import javax.servlet.*;
@@ -19,6 +21,7 @@ public class ProductController extends HttpServlet {
     ProductService productService = new ProductService();
     CategoryService categoryService = new CategoryService();
     BrandService brandService = new BrandService();
+    OrderService orderService = new OrderService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,6 +30,12 @@ public class ProductController extends HttpServlet {
         switch (action) {
             case "home":
                 showAllForUser(request, response);
+                break;
+                case "asc":
+                showAscForm(request, response);
+                break;
+                case "desc":
+                showDescForm(request, response);
                 break;
             case "product_to_brand":
                 showBrandForm(request, response);
@@ -53,6 +62,36 @@ public class ProductController extends HttpServlet {
             }
         } else {
             response.sendRedirect("/user?action=login");
+        }
+    }
+
+    private void showDescForm(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/products/product_desc.jsp");
+        List<Product> products = productService.productDesc();
+        List<Category> categories = categoryService.getAll();
+        List<Brand> brands = brandService.getAll();
+        request.setAttribute("categories", categories);
+        request.setAttribute("brands", brands);
+        request.setAttribute("products", products);
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void showAscForm(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/products/product_asc.jsp");
+        List<Product> products = productService.productAsc();
+        List<Category> categories = categoryService.getAll();
+        List<Brand> brands = brandService.getAll();
+        request.setAttribute("categories", categories);
+        request.setAttribute("brands", brands);
+        request.setAttribute("products", products);
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

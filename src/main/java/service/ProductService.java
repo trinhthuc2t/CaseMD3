@@ -179,4 +179,58 @@ public class ProductService implements IProductService<Product> {
         return product;
     }
 
+    public List<Product> productAsc() {
+        List<Product> products = new ArrayList<>();
+        String sql = "select * from product order by price asc";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String img = resultSet.getString("img");
+                double price = resultSet.getDouble("price");
+                int quantity = resultSet.getInt("quantity");
+                boolean status = resultSet.getBoolean("status");
+                String description = resultSet.getString("description");
+                int idCategory = resultSet.getInt("categoryId");
+                int idBrand = resultSet.getInt("brandId");
+                Brand brand = new Brand(idBrand);
+                Category category = new Category(idCategory);
+                Product product = new Product(id, name, img, price, quantity, status, description, category, brand);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return products;
+    }
+    public List<Product> productDesc() {
+        List<Product> products = new ArrayList<>();
+        String sql = "select * from product order by price desc  ";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String img = resultSet.getString("img");
+                double price = resultSet.getDouble("price");
+                int quantity = resultSet.getInt("quantity");
+                boolean status = resultSet.getBoolean("status");
+                String description = resultSet.getString("description");
+                int idCategory = resultSet.getInt("categoryId");
+                int idBrand = resultSet.getInt("brandId");
+                Brand brand = new Brand(idBrand);
+                Category category = new Category(idCategory);
+                Product product = new Product(id, name, img, price, quantity, status, description, category, brand);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return products;
+    }
 }
+
+
