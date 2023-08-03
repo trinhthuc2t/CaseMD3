@@ -52,6 +52,9 @@ public class ProductController extends HttpServlet {
             case "add_cart":
                 addCardForm(request, response);
                 break;
+            case "product":
+                productDetailForm(request, response);
+                break;
             default:
                 checkAction = false;
         }
@@ -72,6 +75,25 @@ public class ProductController extends HttpServlet {
             }
         } else {
             if (!checkAction) response.sendRedirect("/user?action=login");
+        }
+    }
+
+    private void productDetailForm(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Product product = productService.findIndexById(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/products/product_detail.jsp");
+        List<Product> products = productService.getAll();
+        List<Category> categories = categoryService.getAll();
+        List<Brand> brands = brandService.getAll();
+        request.setAttribute("categories", categories);
+        request.setAttribute("brands", brands);
+        request.setAttribute("products", products);
+        request.setAttribute("product", product);
+
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -65,8 +65,8 @@
       <form class="d-flex">
         <button class="btn btn-outline-dark" type="submit">
           <i class="bi-cart-fill me-1"></i>
-          Giỏ hàng
-          <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+          <a href="http://localhost:8080/products?action=cart" style="text-decoration: none">Giỏ hàng</a>
+          <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.idCart}</span>
         </button>
       </form>
 
@@ -97,7 +97,7 @@
         <div class="col mb-5">
           <div class="card h-100">
             <!-- Product image-->
-            <img class="card-img-top" src="${products.img}" alt="..."/>
+            <img class="card-img-top" src="${products.img}" height="300" width="200" alt="..."/>
             <!-- Product details-->
             <div class="card-body p-4">
               <div class="text-center">
@@ -109,8 +109,7 @@
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-              <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${products.img}">Thêm
-                giỏ hàng</a>
+              <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/products?action=product&id=${products.id}">Xem thêm</a>
               </div>
             </div>
           </div>
