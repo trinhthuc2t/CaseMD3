@@ -3,17 +3,16 @@ package controller;
 import filter.SessionUser;
 import model.Order.Order;
 import model.product.Brand;
+import model.product.Cart;
 import model.product.Category;
 import model.product.Product;
-import service.BrandService;
-import service.CategoryService;
-import service.OrderService;
-import service.ProductService;
+import service.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(name = "ProductController", value = "/products")
@@ -21,20 +20,22 @@ public class ProductController extends HttpServlet {
     ProductService productService = new ProductService();
     CategoryService categoryService = new CategoryService();
     BrandService brandService = new BrandService();
+    CartService cartService = new CartService();
     OrderService orderService = new OrderService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         boolean check = SessionUser.checkUser(request);
+        boolean checkAction = true;
         switch (action) {
             case "home":
                 showAllForUser(request, response);
                 break;
-                case "asc":
+            case "asc":
                 showAscForm(request, response);
                 break;
-                case "desc":
+            case "desc":
                 showDescForm(request, response);
                 break;
             case "product_to_brand":
@@ -45,11 +46,20 @@ public class ProductController extends HttpServlet {
                 break;
             case "search":
                 break;
+            case "cart":
+                showCartForm(request, response);
+                break;
+            case "add_cart":
+                addCardForm(request, response);
+                break;
+            default:
+                checkAction = false;
         }
         if (check) {
             switch (action) {
                 case "home_admin":
                     showAllForAdmin(request, response);
+                    break;
                 case "add":
                     showAddForm(request, response);
                     break;
@@ -61,9 +71,42 @@ public class ProductController extends HttpServlet {
                     break;
             }
         } else {
-            response.sendRedirect("/user?action=login");
+            if (!checkAction) response.sendRedirect("/user?action=login");
         }
     }
+
+    private void addCardForm(HttpServletRequest request, HttpServletResponse response) throws RuntimeException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Product product = new Product(id);
+        try {
+            cartService.addCart(new Cart(product));
+            HttpSession session = request.getSession();
+            session.setAttribute("idCart", cartService.getAll().size());
+            response.sendRedirect("/products?action=home");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    private void showCartForm(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/products/cart.jsp");
+        List<Cart> carts = cartService.getAll();
+        List<Category> categories = categoryService.getAll();
+        List<Brand> brands = brandService.getAll();
+        request.setAttribute("categories", categories);
+        request.setAttribute("brands", brands);
+        request.setAttribute("products", carts);
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     private void showDescForm(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/products/product_desc.jsp");

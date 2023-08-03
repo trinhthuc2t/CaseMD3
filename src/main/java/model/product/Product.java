@@ -9,8 +9,8 @@ public class Product {
     private int quantity;
     private boolean status;
     private String description;
-    Category category;
-    Brand brand;
+    private Category category;
+    private Brand brand;
 
     public Product(int id, String name, String img, double price, int quantity, boolean status, String description, Category category, Brand brand) {
         this.id = id;
@@ -23,6 +23,7 @@ public class Product {
         this.category = category;
         this.brand = brand;
     }
+
     public Product(String name, String img, double price, int quantity, boolean status, String description, Category category, Brand brand) {
         this.name = name;
         this.img = img;
@@ -32,6 +33,15 @@ public class Product {
         this.description = description;
         this.category = category;
         this.brand = brand;
+    } public Product(String name, String img, double price, int quantity) {
+        this.name = name;
+        this.img = img;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public Product(int id) {
+        this.id = id;
     }
 
     public boolean isStatus() {

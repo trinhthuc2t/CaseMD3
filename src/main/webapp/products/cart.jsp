@@ -65,8 +65,8 @@
             <form class="d-flex">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
-                    <a href="http://localhost:8080/products?action=cart" style="text-decoration: none">Giỏ hàng</a>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.idCart}</span>
+                    Giỏ hàng
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
             </form>
 
@@ -109,7 +109,7 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/products?action=add_cart&id=${products.id}">Thêm
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${products.img}">Thêm
                                 giỏ hàng</a>
                             </div>
                         </div>
