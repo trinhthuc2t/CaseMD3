@@ -19,7 +19,7 @@ public class ProductService implements IProductService<Product> {
         String sql = "select * from product join brand b on b.id = product.brandId where b.id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1,idBrand);
+            statement.setInt(1, idBrand);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -40,12 +40,14 @@ public class ProductService implements IProductService<Product> {
             throw new RuntimeException(e);
         }
         return products;
-    } public List<Product> getCategory(int idCategory) {
+    }
+
+    public List<Product> getCategory(int idCategory) {
         List<Product> products = new ArrayList<>();
         String sql = "select * from product join category c on c.id = product.categoryId where c.id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1,idCategory);
+            statement.setInt(1, idCategory);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -67,6 +69,7 @@ public class ProductService implements IProductService<Product> {
         }
         return products;
     }
+
     public List<Product> getAll() {
         List<Product> products = new ArrayList<>();
         String sql = "select * from product";
