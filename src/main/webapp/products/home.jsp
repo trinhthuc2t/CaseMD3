@@ -66,6 +66,9 @@
             <button class="btn btn-outline-dark user" type="submit">
                 <a href="http://localhost:8080/user?action=login" class="user">Tài khoản</a>
             </button>
+            <button class="btn btn-outline-dark user" type="submit">
+                <a href="" class="user">Chảo ${sessionScope.idUser}</a>
+            </button>
 
         </div>
     </div>

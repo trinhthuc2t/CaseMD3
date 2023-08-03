@@ -24,7 +24,9 @@ public class UserSevice {
         }
         return false;
     }
-    public int getIdUser(String user, String password){
+
+
+    public int getIdUser(String user, String password) {
         for (User use : users) {
             if (user.equals(use.getUser()) && password.equals(use.getPassword())) {
                 return use.getId();
