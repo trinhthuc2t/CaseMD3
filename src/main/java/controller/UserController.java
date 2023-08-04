@@ -10,6 +10,8 @@ import java.io.IOException;
 @WebServlet(name = "UserController", value = "/user")
 public class UserController extends HttpServlet {
     private UserSevice userSevice = new UserSevice();
+    private HttpServletRequest request;
+    private HttpServletResponse response;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,4 +58,5 @@ public class UserController extends HttpServlet {
             response.sendRedirect("/user?action=login");
         }
     }
+
 }

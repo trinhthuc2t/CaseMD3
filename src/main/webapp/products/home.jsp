@@ -1,4 +1,5 @@
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -12,6 +13,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title>N5-Shop</title>
+
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <!-- Bootstrap icons-->
@@ -61,21 +63,23 @@
                 <li class="nav-item dropdown">
             </ul>
             <input type="text" name=search" placeholder="Search" class="search">
-
-            <form class="d-flex">
+            <a href="/products?action=cart" style="text-decoration: none">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
-                    <a href="http://localhost:8080/products?action=cart" style="text-decoration: none">Giỏ hàng</a>
+                    Giỏ hàng
                     <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.idCart}</span>
                 </button>
-            </form>
-
-            <button class="btn btn-outline-dark user" type="submit">
-                <a href="http://localhost:8080/user?action=login" class="user">Tài khoản</a>
-            </button>
-            <button class="btn btn-outline-dark user" type="submit">
-                <a href="" class="user">Chảo ${sessionScope.idUser}</a>
-            </button>
+            </a>
+            <c:if test="${sessionScope.idUser == null}">
+                <button class="btn btn-outline-dark user" type="submit">
+                    <a href="http://localhost:8080/user?action=login" class="user">Tài khoản</a>
+                </button>
+            </c:if>
+            <c:if test="${sessionScope.idUser != null}">
+                <button class="btn btn-outline-dark user" type="submit">
+                    <a href="http://localhost:8080/user?action=logout" class="user">Đăng xuất</a>
+                </button>
+            </c:if>
 
         </div>
     </div>
@@ -109,7 +113,9 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/products?action=product&id=${products.id}">Xem thêm</a>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                                        href="http://localhost:8080/products?action=product&id=${products.id}">Xem
+                                thêm</a>
                             </div>
                         </div>
                     </div>

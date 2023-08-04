@@ -10,6 +10,7 @@ public class UserSevice {
 
     public UserSevice() {
         users.add(new User(1, "admin", "1", "admin" ));
+        users.add(new User(2, "user", "1", "user" ));
     }
 
     public void add(User user) {

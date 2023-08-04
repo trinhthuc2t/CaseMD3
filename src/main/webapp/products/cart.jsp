@@ -1,7 +1,7 @@
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <title>N5 SHOP</title>
@@ -65,8 +65,8 @@
             <form class="d-flex">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
-                    Giỏ hàng
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    <a href="http://localhost:8080/products?action=cart" style="text-decoration: none">Giỏ hàng</a>
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.idCart}</span>
                 </button>
             </form>
 
@@ -81,51 +81,87 @@
     </div>
 </nav>
 <!-- Header-->
-<header class="bg-dark py-5">
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Shop in style</h1>
-            <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-        </div>
-    </div>
-</header>
-<!-- Section-->
-<section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <C:forEach items="${products}" var="products">
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <img class="card-img-top" src="${products.img}" alt="..."/>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder">${products.name}</h5>
-                                <!-- Product price-->
-                                    ${products.price}
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${products.img}">Xem thêm</a>
-                            </div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="left border">
+                    <div class="row">
+                        <span class="header">Payment</span>
+                        <div class="icons">
+                            <img src="https://img.icons8.com/color/48/000000/visa.png"/>
+                            <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png"/>
+                            <img src="https://img.icons8.com/color/48/000000/maestro.png"/>
                         </div>
                     </div>
-                </div>
-            </C:forEach>
+                    <form>
+                        <div class="row">
+                            <span>Tên chủ thẻ</span>
+                            <input placeholder="NGUYEN VAN A">
+                        </div>
+                        <div class="row">
+                            <span>Số thẻ:</span>
+                            <input placeholder="0125 6780 4567 9909">
+                        </div>
 
+                        <div class="row">
+                            <div class="col-4"><p> Ngày hết hạn</p>
+                                <input placeholder="YY/MM">
+                            </div>
+                            <div class="col-4">
+                                <p>CVV:</p>
+                                <input id="cvv">
+                            </div>
+                        </div>
+                        <input type="checkbox" id="save_card" class="align-left">
+                        <label for="save_card">Lưu thông tin</label>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="right border">
+                    <div class="header">Giỏ hàng</div>
+                    <p>${sessionScope.idCart} Sản phẩm</p>
+                    <C:forEach items="${carts}" var="cart">
+                        <div class="row item">
+                            <div class="col-4 align-self-center"><img class="img-fluid" src="${cart.product.img}" alt=""></div>
+                            <div class="col-8">
+                                <div class="row"><b>${cart.product.price}VNĐ</b></div>
+                                <div class="row text-muted">${cart.product.name}</div>
+                                <div class="row">Số lượng: ${cart.quantity}</div>
+                                <div class="text-center col-6"><a class="btn btn-outline-dark mt-auto"
+                                                                  href="http://localhost:8080/products?action=delete_cart&id=${products.id}">Xóa</a>
+                                </div>
+                            </div>
+                        </div>
+                    </C:forEach>
+                    <hr>
+                    <div class="row lower">
+                        <div class="col text-left">Tổng tiền</div>
+                        <div class="col text-right">${sessionScope.sumCart}</div>
+                    </div>
+                    <div class="row lower">
+                        <div class="col text-left">Ship</div>
+                        <div class="col text-right">Free</div>
+                    </div>
+                    <div class="row lower">
+                        <div class="col text-left"><b>Tổng tiền thanh toán</b></div>
+                        <div class="col text-right"><b></b>${sessionScope.sumCart}</div>
+                    </div>
+                    <button class="btn btn-outline-dark" type="submit">
+                        <i class=" me-1"></i>
+                        <a href="http://localhost:8080/products?action=home" style="text-decoration: none">Thanh toán</a>
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.idCart}</span>
+                    </button>                    <p class="text-muted text-center">Complimentary Shipping & Returns</p>
+                </div>
+            </div>
         </div>
     </div>
-</section>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-</footer>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+
+    <div>
+    </div>
+</div>
+
 </body>
 </html>

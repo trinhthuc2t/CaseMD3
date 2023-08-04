@@ -63,7 +63,7 @@
                 </button>
             </form>
             <button class="btn btn-outline-dark user" type="submit">
-                <a href="http://localhost:8080/user?action=login" class="user">Đăng xuất</a>
+                <a href="http://localhost:8080/user?action=logout" class="user">Đăng xuất</a>
             </button>
         </div>
     </div>

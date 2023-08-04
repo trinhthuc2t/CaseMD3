@@ -28,6 +28,7 @@ public class ProductController extends HttpServlet {
         String action = request.getParameter("action");
         boolean check = SessionUser.checkUser(request);
         boolean checkAction = true;
+
         switch (action) {
             case "home":
                 showAllForUser(request, response);
@@ -44,6 +45,7 @@ public class ProductController extends HttpServlet {
             case "product_to_category":
                 showCategoryForm(request, response);
                 break;
+
             case "search":
                 break;
             case "cart":
@@ -52,11 +54,15 @@ public class ProductController extends HttpServlet {
             case "add_cart":
                 addCardForm(request, response);
                 break;
+                case "delete_cart":
+                deleteCardForm(request, response);
+                break;
             case "product":
                 productDetailForm(request, response);
                 break;
             default:
                 checkAction = false;
+                break;
         }
         if (check) {
             switch (action) {
@@ -77,6 +83,17 @@ public class ProductController extends HttpServlet {
             if (!checkAction) response.sendRedirect("/user?action=login");
         }
     }
+
+    private void deleteCardForm(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        productService.delete(id);
+        try {
+            response.sendRedirect("/products?action=cart");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     private void productDetailForm(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -119,13 +136,20 @@ public class ProductController extends HttpServlet {
         List<Cart> carts = cartService.getAll();
         List<Category> categories = categoryService.getAll();
         List<Brand> brands = brandService.getAll();
+        List<Product> products = productService.getAll();
+        double sum = cartService.getSumPrice();
+        HttpSession session = request.getSession();
+        session.setAttribute("sumCart", cartService.getSumPrice());
         request.setAttribute("categories", categories);
         request.setAttribute("brands", brands);
-        request.setAttribute("products", carts);
+        request.setAttribute("carts", carts);
+        request.setAttribute("products", products);
+        request.setAttribute("sum",sum);
         try {
             dispatcher.forward(request, response);
         } catch (ServletException | IOException e) {
-            throw new RuntimeException(e);
+            /*throw new RuntimeException(e);*/
+            e.printStackTrace();
         }
     }
 
