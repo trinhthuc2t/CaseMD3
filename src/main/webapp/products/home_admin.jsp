@@ -1,11 +1,12 @@
-<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>N5 SHOP</title>
-    <link rel="icon" href="https://cdn.dribbble.com/users/1595645/screenshots/13966658/media/3896bf05aa6ae338d73474edd5cc16a7.png">
+    <link rel="icon"
+          href="https://cdn.dribbble.com/users/1595645/screenshots/13966658/media/3896bf05aa6ae338d73474edd5cc16a7.png">
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
@@ -28,60 +29,68 @@
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item"><a class="nav-link active" aria-current="page"
-                                        href="http://localhost:8080/products?action=home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="http://localhost:8080/products?action=add">Thêm</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="http://localhost:8080/products?action=home">Home</a></li>
+
+                <c:if test='${sessionScope.user.role == "admin"}'>
+                    <li class="nav-item"><a class="nav-link" href="http://localhost:8080/products?action=add">Thêm</a></li>
+                </c:if>
+
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">Danh Mục Sản Phẩm</a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Danh Mục Sản Phẩm</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="http://localhost:8080/products?action=home">Tất cả SP</a>
+                        <li>
+                            <a class="dropdown-item" href="http://localhost:8080/products?action=home">Tất cả SP</a>
                         </li>
                         <li>
                             <hr class="dropdown-divider"/>
                         </li>
-                        <C:forEach items="${brands}" var="brand">
-                            <li><a class="dropdown-item"
-                                   href="http://localhost:8080/products?action=product_to_category&id=${brand.id}">${brand.name}</a>
+                        <c:forEach items="${brands}" var="brand">
+                            <li>
+                                <a class="dropdown-item" href="http://localhost:8080/products?action=product_to_brand&id=${brand.id}">${brand.name}</a>
                             </li>
-                        </C:forEach>
-                        <C:forEach items="${categories}" var="category">
-                            <li><a class="dropdown-item"
-                                   href="http://localhost:8080/products?action=product_to_category&id=${category.id}">${category.name}</a>
+                        </c:forEach>
+
+                        <c:forEach items="${categories}" var="category">
+                            <li>
+                                <a class="dropdown-item" href="http://localhost:8080/products?action=product_to_bcategory&id=${category.id}">${category.name}</a>
                             </li>
-                        </C:forEach>
+                        </c:forEach>
                     </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="http://localhost:8080/products?action=home&orderBy=asc">Giá tăng dần</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="http://localhost:8080/products?action=home&orderBy=desc">Giá giảm dần</a>
                 </li>
             </ul>
             <input type="text" name=search" placeholder="Search" class="search">
 
-            <form class="d-flex">
+            <a href="/products?action=cart" style="text-decoration: none">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
                     Giỏ hàng
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.iCart}</span>
                 </button>
-            </form>
+            </a>
             <button class="btn btn-outline-dark user" type="submit">
-                <a href="http://localhost:8080/user?action=logout" class="user">Đăng xuất</a>
+                <c:if test="${sessionScope.user == null}">
+                    <a href="http://localhost:8080/user?action=login" class="user">Tài khoản</a>
+                </c:if>
+                <c:if test="${sessionScope.user != null}">
+                    <a href="http://localhost:8080/user?action=logout" class="user">Đăng xuất</a>
+                </c:if>
             </button>
         </div>
     </div>
 </nav>
-<!-- Header-->
-<header class="bg-dark py-5">
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Shop in style</h1>
-            <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-        </div>
-    </div>
-</header>
+
 <!-- Section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <C:forEach items="${products}" var="products">
+            <c:forEach items="${products}" var="products">
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Product image-->
@@ -97,16 +106,28 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent row">
-                            <div class="text-center col-6"><a class="btn btn-outline-dark mt-auto"
-                                                              href="http://localhost:8080/products?action=edit&id=${products.id}">Sửa</a>
-                            </div>
-                            <div class="text-center col-6"><a class="btn btn-outline-dark mt-auto"
-                                                              href="http://localhost:8080/products?action=delete&id=${products.id}">Xóa</a>
-                            </div>
+                            <c:if test="${sessionScope.user.role == 'admin'}">
+                                <div class="text-center col-6">
+                                    <a class="btn btn-outline-dark mt-auto"
+                                       href="http://localhost:8080/products?action=edit&id=${products.id}">Sửa</a>
+                                </div>
+                                <div class="text-center col-6">
+                                    <a class="btn btn-outline-dark mt-auto"
+                                       href="http://localhost:8080/products?action=delete&id=${products.id}">Xóa</a>
+                                </div>
+                            </c:if>
+                            <c:if test="${sessionScope.user.role != 'admin'}">
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto"
+                                       href="http://localhost:8080/products?action=product&id=${products.id}">
+                                        Xem thêm
+                                    </a>
+                                </div>
+                            </c:if>
                         </div>
                     </div>
                 </div>
-            </C:forEach>
+            </c:forEach>
 
         </div>
     </div>

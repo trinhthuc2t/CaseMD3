@@ -1,3 +1,4 @@
+
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -66,15 +67,18 @@
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
                     <a href="http://localhost:8080/products?action=cart" style="text-decoration: none">Giỏ hàng</a>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.idCart}</span>
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.iCart}</span>
                 </button>
             </form>
 
+
             <button class="btn btn-outline-dark user" type="submit">
-                <a href="http://localhost:8080/user?action=login" class="user">Tài khoản</a>
-            </button>
-            <button class="btn btn-outline-dark user" type="submit">
-                <a href="" class="user">Chảo ${sessionScope.idUser}</a>
+                <c:if test="${sessionScope.user == null}">
+                    <a href="http://localhost:8080/user?action=login" class="user">Tài khoản</a>
+                </c:if>
+                <c:if test="${sessionScope.user != null}">
+                    <a href="http://localhost:8080/user?action=logout" class="user">Đăng xuất</a>
+                </c:if>
             </button>
 
         </div>

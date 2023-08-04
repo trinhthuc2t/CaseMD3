@@ -1,5 +1,6 @@
 package controller;
 
+import model.user.User;
 import service.UserSevice;
 
 import javax.servlet.*;
@@ -28,7 +29,7 @@ public class UserController extends HttpServlet {
     private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         session.invalidate();
-        response.sendRedirect("/user?action=login");
+        response.sendRedirect("/products?action=home");
     }
 
     private void showLoginForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,13 +48,13 @@ public class UserController extends HttpServlet {
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String user = request.getParameter("user");
+        String username = request.getParameter("user");
         String password = request.getParameter("password");
-        if (userSevice.checkUser(user, password)) {
-            int id = userSevice.getIdUser(user, password);
+        if (userSevice.checkUser(username, password)) {
+            User user = userSevice.getUserByUserAndPass(username, password);
             HttpSession session = request.getSession();
-            session.setAttribute("idUser", id);
-            response.sendRedirect("http://localhost:8080/products?action=home_admin");
+            session.setAttribute("user", user);
+            response.sendRedirect("http://localhost:8080/products?action=home");
         } else {
             response.sendRedirect("/user?action=login");
         }

@@ -1,7 +1,8 @@
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>N5 SHOP</title>
@@ -12,6 +13,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title>N5-Shop</title>
+
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <!-- Bootstrap icons-->
@@ -21,7 +23,7 @@
 </head>
 <body>
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #F0F2F5">
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #F0F2F5 " width:10>
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="#!"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -61,110 +63,67 @@
                 <li class="nav-item dropdown">
             </ul>
             <input type="text" name=search" placeholder="Search" class="search">
-
-            <form class="d-flex">
+            <a href="/products?action=cart" style="text-decoration: none">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
-                    <a href="http://localhost:8080/products?action=cart" style="text-decoration: none">Giỏ hàng</a>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.idCart}</span>
+                    Giỏ hàng
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.iCart}</span>
                 </button>
-            </form>
-
-            <button class="btn btn-outline-dark user" type="submit">
-                <a href="http://localhost:8080/user?action=login" class="user">Tài khoản</a>
-            </button>
-            <button class="btn btn-outline-dark user" type="submit">
-                <a href="" class="user">Chảo ${sessionScope.idUser}</a>
-            </button>
+            </a>
+            <c:if test="${sessionScope.idUser == null}">
+                <button class="btn btn-outline-dark user" type="submit">
+                    <a href="http://localhost:8080/user?action=login" class="user">Tài khoản</a>
+                </button>
+            </c:if>
+            <c:if test="${sessionScope.idUser != null}">
+                <button class="btn btn-outline-dark user" type="submit">
+                    <a href="http://localhost:8080/user?action=logout" class="user">Đăng xuất</a>
+                </button>
+            </c:if>
 
         </div>
     </div>
 </nav>
 <!-- Header-->
-
-<div class="card">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="left border">
-                    <div class="row">
-                        <span class="header">Payment</span>
-                        <div class="icons">
-                            <img src="https://img.icons8.com/color/48/000000/visa.png"/>
-                            <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png"/>
-                            <img src="https://img.icons8.com/color/48/000000/maestro.png"/>
-                        </div>
-                    </div>
-                    <form>
-                        <div class="row">
-                            <span>Tên trên ther</span>
-                            <input placeholder="Linda Williams">
-                        </div>
-                        <div class="row">
-                            <span>Card Number:</span>
-                            <input placeholder="0125 6780 4567 9909">
-                        </div>
-
-                        <div class="row">
-                            <div class="col-4"><p> Expiry date:</p>
-                                <input placeholder="YY/MM">
-                            </div>
-                            <div class="col-4">
-                                <p>CVV:</p>
-                                <input id="cvv">
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <C:forEach items="${products}" var="products">
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="${products.img}" height="300" width="200" alt="..."/>
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">${products.name}</h5>
+                                <!-- Product price-->
+                                    ${products.price}
                             </div>
                         </div>
-                        <input type="checkbox" id="save_card" class="align-left">
-                        <label for="save_card">Save card details to wallet</label>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="right border">
-                    <div class="header">Order Summary</div>
-                    <p>2 items</p>
-                    <div class="row item">
-                        <div class="col-4 align-self-center"><img class="img-fluid" src="https://i.imgur.com/79M6pU0.png"></div>
-                        <div class="col-8">
-                            <div class="row"><b>$ 26.99</b></div>
-                            <div class="row text-muted">Be Legandary Lipstick-Nude rose</div>
-                            <div class="row">Qty:1</div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                                        href="http://localhost:8080/products?action=product&id=${products.id}">Xem
+                                thêm</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="row item">
-                        <div class="col-4 align-self-center"><img class="img-fluid" src="https://i.imgur.com/Ew8NzKr.jpg"></div>
-                        <div class="col-8">
-                            <div class="row"><b>$ 19.99</b></div>
-                            <div class="row text-muted">Be Legandary Lipstick-Sheer Navy Cream</div>
-                            <div class="row">Qty:1</div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row lower">
-                        <div class="col text-left">Subtotal</div>
-                        <div class="col text-right">$ 46.98</div>
-                    </div>
-                    <div class="row lower">
-                        <div class="col text-left">Delivery</div>
-                        <div class="col text-right">Free</div>
-                    </div>
-                    <div class="row lower">
-                        <div class="col text-left"><b>Total to pay</b></div>
-                        <div class="col text-right"><b>$ 46.98</b></div>
-                    </div>
-                    <div class="row lower">
-                        <div class="col text-left"><a href="#"><u>Add promo code</u></a></div>
-                    </div>
-                    <button class="btn">Place order</button>
-                    <p class="text-muted text-center">Complimentary Shipping & Returns</p>
                 </div>
-            </div>
+            </C:forEach>
+
         </div>
     </div>
-
-    <div>
-    </div>
-</div>
-
+</section>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
 </body>
 </html>

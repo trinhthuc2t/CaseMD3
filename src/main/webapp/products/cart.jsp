@@ -66,15 +66,17 @@
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
                     <a href="http://localhost:8080/products?action=cart" style="text-decoration: none">Giỏ hàng</a>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.idCart}</span>
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.iCart}</span>
                 </button>
             </form>
 
             <button class="btn btn-outline-dark user" type="submit">
-                <a href="http://localhost:8080/user?action=login" class="user">Tài khoản</a>
-            </button>
-            <button class="btn btn-outline-dark user" type="submit">
-                <a href="" class="user">Chảo ${sessionScope.idUser}</a>
+                <c:if test="${sessionScope.user == null}">
+                    <a href="http://localhost:8080/user?action=login" class="user">Tài khoản</a>
+                </c:if>
+                <c:if test="${sessionScope.user != null}">
+                    <a href="http://localhost:8080/user?action=logout" class="user">Đăng xuất</a>
+                </c:if>
             </button>
 
         </div>
@@ -122,22 +124,23 @@
             <div class="col-md-5">
                 <div class="right border">
                     <div class="header">Giỏ hàng</div>
-                    <p>${sessionScope.idCart} Sản phẩm</p>
                     <C:forEach items="${carts}" var="cart">
                         <div class="row item">
-                            <div class="col-4 align-self-center"><img class="img-fluid" src="${cart.product.img}" alt=""></div>
+                            <div class="col-4 align-self-center"><img class="img-fluid" src="${cart.product.img}"
+                                                                      width="50" height="50" alt=""></div>
                             <div class="col-8">
                                 <div class="row"><b>${cart.product.price}VNĐ</b></div>
                                 <div class="row text-muted">${cart.product.name}</div>
-                                <div class="row">Số lượng: ${cart.quantity}</div>
+                                    <%--                                <div class="row">Số lượng: ${cart.product.quantity}</div>--%>
                                 <div class="text-center col-6"><a class="btn btn-outline-dark mt-auto"
-                                                                  href="http://localhost:8080/products?action=delete_cart&id=${products.id}">Xóa</a>
+                                                                  href="http://localhost:8080/products?action=delete_cart&id=${cart.idCart}">Xóa</a>
                                 </div>
                             </div>
                         </div>
                     </C:forEach>
                     <hr>
                     <div class="row lower">
+                        <p>Tổng sản phẩm: ${sessionScope.iCart}</p>
                         <div class="col text-left">Tổng tiền</div>
                         <div class="col text-right">${sessionScope.sumCart}</div>
                     </div>
@@ -151,9 +154,11 @@
                     </div>
                     <button class="btn btn-outline-dark" type="submit">
                         <i class=" me-1"></i>
-                        <a href="http://localhost:8080/products?action=home" style="text-decoration: none">Thanh toán</a>
+                        <a href="http://localhost:8080/products?action=home" style="text-decoration: none">Thanh
+                            toán</a>
                         <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.idCart}</span>
-                    </button>                    <p class="text-muted text-center">Complimentary Shipping & Returns</p>
+                    </button>
+                    <p class="text-muted text-center">Complimentary Shipping & Returns</p>
                 </div>
             </div>
         </div>

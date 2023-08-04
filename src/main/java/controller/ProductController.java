@@ -21,23 +21,28 @@ public class ProductController extends HttpServlet {
     CategoryService categoryService = new CategoryService();
     BrandService brandService = new BrandService();
     CartService cartService = new CartService();
-    OrderService orderService = new OrderService();
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        boolean check = SessionUser.checkUser(request);
         boolean checkAction = true;
 
         switch (action) {
             case "home":
                 showAllForUser(request, response);
                 break;
-            case "asc":
-                showAscForm(request, response);
+            case "product":
+                productDetailForm(request, response);
                 break;
-            case "desc":
-                showDescForm(request, response);
+            case "cart":
+                showCartForm(request, response);
+                break;
+            case "add_cart":
+                addCardForm(request, response);
+                break;
+            case "delete_cart":
+                deleteCardForm(request, response);
                 break;
             case "product_to_brand":
                 showBrandForm(request, response);
@@ -48,45 +53,46 @@ public class ProductController extends HttpServlet {
 
             case "search":
                 break;
-            case "cart":
-                showCartForm(request, response);
-                break;
-            case "add_cart":
-                addCardForm(request, response);
-                break;
-                case "delete_cart":
-                deleteCardForm(request, response);
-                break;
-            case "product":
-                productDetailForm(request, response);
-                break;
+
             default:
                 checkAction = false;
                 break;
         }
-        if (check) {
-            switch (action) {
-                case "home_admin":
-                    showAllForAdmin(request, response);
-                    break;
-                case "add":
-                    showAddForm(request, response);
-                    break;
-                case "delete":
-                    deleteProduct(request, response);
-                    break;
-                case "edit":
-                    showEditForm(request, response);
-                    break;
+        if (SessionUser.checkUser(request)) {
+            if (!SessionUser.checkRoleAdmin(request)) {
+                switch (action) {
+
+                    default:
+                        checkAction = false;
+                        break;
+                }
+            } else {
+                switch (action) {
+                    case "home_admin":
+                        showAllForAdmin(request, response);
+                        break;
+                    case "add":
+                        showAddForm(request, response);
+                        break;
+                    case "delete":
+                        deleteProduct(request, response);
+                        break;
+                    case "edit":
+                        showEditForm(request, response);
+                        break;
+                }
             }
         } else {
             if (!checkAction) response.sendRedirect("/user?action=login");
         }
     }
 
+
     private void deleteCardForm(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
-        productService.delete(id);
+        cartService.delete(id);
+        HttpSession session = request.getSession();
+        session.setAttribute("iCart", cartService.getAll().size());
         try {
             response.sendRedirect("/products?action=cart");
         } catch (IOException e) {
@@ -120,7 +126,7 @@ public class ProductController extends HttpServlet {
         try {
             cartService.addCart(new Cart(product));
             HttpSession session = request.getSession();
-            session.setAttribute("idCart", cartService.getAll().size());
+            session.setAttribute("iCart", cartService.getAll().size());
             response.sendRedirect("/products?action=home");
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -144,7 +150,7 @@ public class ProductController extends HttpServlet {
         request.setAttribute("brands", brands);
         request.setAttribute("carts", carts);
         request.setAttribute("products", products);
-        request.setAttribute("sum",sum);
+        request.setAttribute("sum", sum);
         try {
             dispatcher.forward(request, response);
         } catch (ServletException | IOException e) {
@@ -153,57 +159,24 @@ public class ProductController extends HttpServlet {
         }
     }
 
-
-    private void showDescForm(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/products/product_desc.jsp");
-        List<Product> products = productService.productDesc();
-        List<Category> categories = categoryService.getAll();
-        List<Brand> brands = brandService.getAll();
-        request.setAttribute("categories", categories);
-        request.setAttribute("brands", brands);
-        request.setAttribute("products", products);
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void showAscForm(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/products/product_asc.jsp");
-        List<Product> products = productService.productAsc();
-        List<Category> categories = categoryService.getAll();
-        List<Brand> brands = brandService.getAll();
-        request.setAttribute("categories", categories);
-        request.setAttribute("brands", brands);
-        request.setAttribute("products", products);
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    private void showCategoryForm(HttpServletRequest request, HttpServletResponse response) {
-        int idCategory = Integer.parseInt(request.getParameter("id"));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("products/product_to_category.jsp");
-        List<Product> products = productService.getCategory(idCategory);
-        List<Category> categories = categoryService.getAll();
-        List<Brand> brands = brandService.getAll();
-        request.setAttribute("categories", categories);
-        request.setAttribute("brands", brands);
-        request.setAttribute("products", products);
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private void showBrandForm(HttpServletRequest request, HttpServletResponse response) {
         int idBrand = Integer.parseInt(request.getParameter("id"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("products/product_to_brand.jsp");
+        List<Product> products = productService.getBrand(idBrand);
+        List<Category> categories = categoryService.getAll();
+        List<Brand> brands = brandService.getAll();
+        request.setAttribute("categories", categories);
+        request.setAttribute("brands", brands);
+        request.setAttribute("products", products);
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void showCategoryForm(HttpServletRequest request, HttpServletResponse response) {
+        int idBrand = Integer.parseInt(request.getParameter("id"));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("products/product_to_category.jsp");
         List<Product> products = productService.getBrand(idBrand);
         List<Category> categories = categoryService.getAll();
         List<Brand> brands = brandService.getAll();
@@ -237,7 +210,7 @@ public class ProductController extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         productService.delete(id);
         try {
-            response.sendRedirect("/products?action=home_admin");
+            response.sendRedirect("/products?action=card");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -271,28 +244,47 @@ public class ProductController extends HttpServlet {
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     private void showAllForUser(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/products/home.jsp");
-        List<Product> products = productService.getAll();
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/products/home_admin.jsp");
+        List<Product> products = null;
         List<Category> categories = categoryService.getAll();
         List<Brand> brands = brandService.getAll();
         request.setAttribute("categories", categories);
         request.setAttribute("brands", brands);
-        request.setAttribute("products", products);
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException | IOException e) {
-            throw new RuntimeException(e);
-        }
+        String orderBy = request.getParameter("orderBy");
+        if (orderBy != null) {
+            switch (orderBy) {
+                case "asc":
+                    products = productService.productAsc();
+                    break;
+                case "desc":
+                    products = productService.productDesc();
+                    break;
 
+            }
+            request.setAttribute("products", products);
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            products = productService.getAll();
+            request.setAttribute("products", products);
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
+            ServletException, IOException {
         String action = request.getParameter("action");
 
         switch (action) {

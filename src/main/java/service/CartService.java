@@ -58,5 +58,16 @@ public class CartService {
         }
         return -1;
     }
+    public void delete(int id) {
+        String sql = "delete from cart where id = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
