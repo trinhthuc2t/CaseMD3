@@ -63,13 +63,13 @@
             </ul>
             <input type="text" name=search" placeholder="Search" class="search">
 
-            <form class="d-flex">
+            <a href="/products?action=cart" style="text-decoration: none">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
-                    <a href="http://localhost:8080/products?action=cart" style="text-decoration: none">Giỏ hàng</a>
+                    Giỏ hàng
                     <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.iCart}</span>
                 </button>
-            </form>
+            </a>
 
 
             <button class="btn btn-outline-dark user" type="submit">
