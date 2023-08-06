@@ -97,7 +97,7 @@
                             <img src="https://img.icons8.com/color/48/000000/maestro.png"/>
                         </div>
                     </div>
-                    <form>
+                    <form style="margin: 20px">
                         <div class="row">
                             <span>Tên chủ thẻ</span>
                             <input placeholder="NGUYEN VAN A">
@@ -122,19 +122,25 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <div class="right border">
+                <div class="right border" style="padding: 20px">
                     <div class="header">Giỏ hàng</div>
                     <C:forEach items="${carts}" var="cart">
                         <div class="row item">
                             <div class="col-4 align-self-center"><img class="img-fluid" src="${cart.product.img}"
                                                                       width="50" height="50" alt=""></div>
                             <div class="col-8">
-                                <div class="row"><b>${cart.product.price}VNĐ</b></div>
-                                <div class="row text-muted">${cart.product.name}</div>
-                                    <%--                                <div class="row">Số lượng: ${cart.product.quantity}</div>--%>
-                                <div class="text-center col-6"><a class="btn btn-outline-dark mt-auto"
-                                                                  href="http://localhost:8080/products?action=delete_cart&id=${cart.idCart}">Xóa</a>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row"><b>Giá sp: ${cart.product.price} VNĐ</b></div>
+                                        <div class="row text-muted">Tên SP: ${cart.product.name}</div>
+                                    </div>
+
+                                        <%--                                <div class="row">Số lượng: ${cart.product.quantity}</div>--%>
+                                    <div class="text-center col-4"><a class="btn btn-outline-dark mt-auto"
+                                                                      href="http://localhost:8080/products?action=delete_cart&id=${cart.idCart}">Xóa</a>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </C:forEach>

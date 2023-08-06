@@ -65,7 +65,11 @@
                     <a class="nav-link active" aria-current="page" href="http://localhost:8080/products?action=home&orderBy=desc">Giá giảm dần</a>
                 </li>
             </ul>
-            <input type="text" name=search" placeholder="Search" class="search">
+            <form class="form-inline my-2 my-lg-0" action="http://localhost:8080/products?action=search" >
+                <input type="hidden" name = "action" value="search">
+                <input type="text" name="nameSearch" placeholder="Search" class="search">
+
+            </form>
 
             <a href="/products?action=cart" style="text-decoration: none">
                 <button class="btn btn-outline-dark" type="submit">
