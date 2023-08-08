@@ -1,7 +1,7 @@
 package controller;
 
 import model.user.User;
-import service.UserSevice;
+import service.user.UserSevice;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -24,8 +24,21 @@ public class UserController extends HttpServlet {
             case "logout":
                 logout(request,response);
                 break;
+            case "register":
+                registerForm(request, response);
+                break;
         }
     }
+
+    private void registerForm(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user/register.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         session.invalidate();
@@ -44,7 +57,27 @@ public class UserController extends HttpServlet {
             case "login":
                  login(request, response);
                 break;
+            case "register":
+                register(request, response);
+                break;
         }
+    }
+
+    private void register(HttpServletRequest request, HttpServletResponse response) {
+        String userName = request.getParameter("user");
+        String pass = request.getParameter("pass");
+        String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String sex = request.getParameter("sex");
+        User user = new User(userName,pass,name,phone,address,sex);
+        userSevice.add(user);
+        try {
+            response.sendRedirect("/user?action=login");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -59,5 +92,6 @@ public class UserController extends HttpServlet {
             response.sendRedirect("/user?action=login");
         }
     }
+
 
 }

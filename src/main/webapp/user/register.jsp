@@ -20,34 +20,34 @@
     </style>
 </head>
 <body>
-<div class="container form-login" >
-<form>
+<div class="container form-login"  >
+<form action="http://localhost:8080/user?action=register" method="post">
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="inputEmail4">Email</label>
-            <input type="email" class="form-control" placeholder="Nhập Email" id="inputEmail4">
+            <label for="inputEmail4">Tên tài khoản</label>
+            <input type="text" class="form-control" placeholder="Tên tài khoản" name="user" id="inputEmail4">
         </div>
         <div class="form-group col-md-6">
-            <label for="inputPassword4">Password</label>
-            <input type="password" class="form-control" placeholder="Nhập mật khẩu" id="inputPassword4">
+            <label for="inputPassword4">Mật khẩu</label>
+            <input type="password" class="form-control" placeholder="Nhập mật khẩu" name="pass" id="inputPassword4">
         </div>
     </div>
     <div class="form-group">
-        <label for="inputAddress">Name</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="Nhập họ tên đầy đủ">
+        <label for="inputAddress">Họ và tên</label>
+        <input type="text" class="form-control" id="inputAddress" name="name" placeholder="Nhập họ tên đầy đủ">
     </div>
     <div class="form-group">
-        <label for="inputAddress2">Phone Number</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Nhập số điện thoại">
+        <label for="inputAddress2">Số điện thoại</label>
+        <input type="text" class="form-control" id="inputAddress2" name="phone" placeholder="Nhập số điện thoại">
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="inputCity">Address</label>
-            <input type="text" class="form-control" placeholder="Nhập địa chỉ" id="inputCity">
+            <label for="inputCity"Địa chỉ></label>
+            <input type="text" class="form-control" placeholder="Nhập địa chỉ" name="address" id="inputCity">
         </div>
         <div class="form-group col-md-4">
-            <label for="inputState">Sex</label>
-            <select id="inputState" class="form-control">
+            <label for="inputState">Giới tính</label>
+            <select id="inputState" name="sex" class="form-control">
                 <option selected>Nam</option>
                 <option>Nữ</option>
                 <option>Khác</option>
@@ -56,14 +56,6 @@
         <div class="form-group col-md-2">
             <label for="inputZip">Referral Code</label>
             <input type="text" class="form-control" placeholder="Mã giới thiệu nếu có" id="inputZip">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck">
-            <label class="form-check-label" for="gridCheck">
-                cho phép truy cập vị trí của bạn
-            </label>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Sign in</button>

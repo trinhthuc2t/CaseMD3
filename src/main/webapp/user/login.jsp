@@ -37,7 +37,7 @@
                 <br>
                 <br>
                 <br>
-                <div><small>Không có tài khoản?</small> <a href="http://localhost:8080/user/register.jsp"><small>Tạo tài khoản</small></a>
+                <div><small>Không có tài khoản?</small> <a href="http://localhost:8080/user?action=register"><small>Tạo tài khoản</small></a>
                 </div>
             </div>
         </div>

@@ -8,9 +8,8 @@ public class User {
     private String phoneNumber;
     private String address;
     private String sex;
-    private String referralCode;
     private String role;
-    public User(int id, String user, String password, String fullName, String phoneNumber, String address, String sex, String referralCode, String role) {
+    public User(int id, String user, String password, String fullName, String phoneNumber, String address, String sex , String role) {
         this.id = id;
         this.user = user;
         this.password = password;
@@ -18,8 +17,16 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.sex = sex;
-        this.referralCode = referralCode;
         this.role = role;
+    }
+ public User(String user, String password, String fullName, String phoneNumber, String address, String sex) {
+        this.user = user;
+        this.password = password;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.sex = sex;
+
     }
 
     public User(int id, String user, String password, String role) {
@@ -60,17 +67,6 @@ public class User {
     public void setSex(String sex) {
         this.sex = sex;
     }
-
-    public String getReferralCode() {
-        return referralCode;
-    }
-
-    public void setReferralCode(String referralCode) {
-        this.referralCode = referralCode;
-    }
-
-
-
     public int getId() {
         return id;
     }
