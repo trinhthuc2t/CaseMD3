@@ -15,7 +15,17 @@ import java.util.List;
 
 public class ProductService implements IProductService<Product> {
     Connection connection = ConnectionToMySQL.getConnection();
-
+    public List<Product> findByName(String name) {
+        List<Product> products = getAll();
+        List<Product> productList = new ArrayList<>();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getName().toUpperCase().contains(name.toUpperCase())) {
+                Product student = products.get(i);
+                productList.add(student);
+            }
+        }
+        return productList;
+    }
     public List<Product> getBrand(int idBrand) {
         List<Product> products = new ArrayList<>();
         String sql = "select * from product join brand b on b.id = product.brandId where b.id = ?";

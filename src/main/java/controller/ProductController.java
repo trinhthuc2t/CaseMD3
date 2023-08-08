@@ -54,8 +54,8 @@ public class ProductController extends HttpServlet {
                 break;
 
             case "search":
+                showFindForm(request, response);
                 break;
-
             default:
                 checkAction = false;
                 break;
@@ -82,6 +82,7 @@ public class ProductController extends HttpServlet {
                     case "edit":
                         showEditForm(request, response);
                         break;
+
                 }
             }
         } else {
@@ -89,6 +90,17 @@ public class ProductController extends HttpServlet {
         }
     }
 
+    private void showFindForm(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("products/home_admin.jsp");
+        String name = request.getParameter("nameSearch");
+        List<Product> products = productService.findByName(name);
+        request.setAttribute("products", products);
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private void deleteCardForm(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -176,6 +188,7 @@ public class ProductController extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+
     private void showCategoryForm(HttpServletRequest request, HttpServletResponse response) {
         int idBrand = Integer.parseInt(request.getParameter("id"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("products/product_to_category.jsp");
