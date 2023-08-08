@@ -1,8 +1,10 @@
-package service;
+package service.product;
 
 import model.product.Brand;
 import model.product.Category;
 import model.product.Product;
+import service.ConnectionToMySQL;
+import service.IProductService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

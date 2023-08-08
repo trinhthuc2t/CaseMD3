@@ -1,7 +1,8 @@
-package service;
+package service.product;
 
 import model.product.Cart;
 import model.product.Product;
+import service.ConnectionToMySQL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
